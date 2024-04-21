@@ -10,4 +10,3 @@ public class AgeRestrictionException extends Exception {
         super(message);
     }
 }
-//ToAsk: tell about the structure of the exception

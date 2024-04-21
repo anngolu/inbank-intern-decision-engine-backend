@@ -34,7 +34,7 @@ public class DecisionEngine {
      * @param personalCode ID code of the customer that made the request.
      * @param loanAmount   Requested loan amount
      * @param loanPeriod   Requested loan period
-     * @param countryCode
+     * @param countryCode  Requested country code
      * @return A Decision object containing the approved loan amount and period, and an error message (if any)
      * @throws InvalidPersonalCodeException If the provided personal ID code is invalid
      * @throws InvalidLoanAmountException   If the requested loan amount is invalid
@@ -55,7 +55,7 @@ public class DecisionEngine {
         creditModifier = getCreditModifier(personalCode);
 
         if (creditModifier == 0) {
-            throw new NoValidLoanException("No valid loan found!");
+            throw new NoValidLoanException("Loan cannot be acquired due to a debt!");
         }
 
         while (highestValidLoanAmount(loanPeriod) < DecisionEngineConstants.MINIMUM_LOAN_AMOUNT) {
@@ -91,7 +91,6 @@ public class DecisionEngine {
      * @return Segment to which the customer belongs.
      */
     private int getCreditModifier(String personalCode) {
-        // TODO: personal code modifier can be found using EstonianPersonalCodeParser#getBirthOrderNumber
         int segment = Integer.parseInt(personalCode.substring(personalCode.length() - 4));
 
         if (segment < 2500) {
@@ -112,7 +111,7 @@ public class DecisionEngine {
      * @param personalCode Provided personal ID code
      * @param loanAmount   Requested loan amount
      * @param loanPeriod   Requested loan period
-     * @param countryCode
+     * @param countryCode  Requested country code
      * @throws InvalidPersonalCodeException If the provided personal ID code is invalid
      * @throws InvalidLoanAmountException   If the requested loan amount is invalid
      * @throws InvalidLoanPeriodException   If the requested loan period is invalid

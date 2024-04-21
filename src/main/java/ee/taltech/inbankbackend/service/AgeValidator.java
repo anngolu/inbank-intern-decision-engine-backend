@@ -36,7 +36,7 @@ public class AgeValidator {
 //            }
         } else if (countryCode == Country.LV) {
             age = latvianPersonalCodeParser.getAge(personalCode);
-            averageLifetimeYears = AgeConstants.LATVIAN_AVERAGE_MALE_LIFETIME_YEARS;
+            averageLifetimeYears = AgeConstants.LATVIAN_AVERAGE_LIFETIME_YEARS;
         } else {
             age = estonianPersonalCodeParser.getAge(personalCode);
             boolean isFemale = estonianPersonalCodeParser.getGender(personalCode).equals(Gender.FEMALE);
@@ -53,13 +53,13 @@ public class AgeValidator {
 
     private static void validateLifetimeNotExceedingLoanPeriod(short averageLifetimeYears, Period age, int expectedLoanPayOffYears) throws AgeRestrictionException {
         if (averageLifetimeYears <= age.getYears()) {
-            throw new AgeRestrictionException("Your age exceeds the current Estonian expected lifetime");
+            throw new AgeRestrictionException("Your age exceeds the current expected lifetime in your country");
         }
 
         if (averageLifetimeYears <= expectedLoanPayOffYears) {
             throw new AgeRestrictionException("Your age plus specified loan period exceeds expected "
                     + averageLifetimeYears
-                    + " years life time in Estonia. Try to request smaller loan period");
+                    + " years life time in your country. Try to request smaller loan period");
         }
     }
 
